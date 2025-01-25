@@ -64,36 +64,51 @@ async function main() {
 
   const options = program.opts<Options>()
 
-  async function downloadProduct(id: number | string): Promise<Buffer | null> {
-    const pid = typeof id === 'number' ? id : id.trim()
-    let i = 100
-    for (; i > 0; i--) {
-      try {
-        const file = await download(`https://userimages-akm.imvu.com/productdata/${pid}/${i}`)
+async function downloadProduct(id: number | string): Promise<Buffer | null> {
+  const pid = typeof id === 'number' ? id : id.trim();
+  let revision = 1;
+  let lastSuccessfulRevision = 0;
 
-        if (file.length > 0) break
-      } catch {}
+  while (true) {
+    try {
+      const file = await download(`https://userimages-akm.imvu.com/productdata/${pid}/${revision}`);
+
+      if (file.length > 0) {
+        lastSuccessfulRevision = revision; // Track the last valid revision
+        revision++;
+      } else {
+        break; // Exit when no file is found
+      }
+    } catch {
+      break; // Exit when the request fails (e.g., 404 error)
     }
-
-    if (i === 0) return null
-
-    const contents = await download(
-      `https://userimages-akm.imvu.com/productdata/${pid}/${i}/_contents.json`
-    )
-    const manifest = JSON.parse(contents.toString())
-
-    const zip = new JSZip()
-
-    for (const file of manifest) {
-      const url = file.url ?? file.name
-      console.log(`Downloading https://userimages-akm.imvu.com/productdata/${pid}/${i}/${url}`)
-      const data = await download(`https://userimages-akm.imvu.com/productdata/${pid}/${i}/${url}`)
-
-      zip.file(file.name, data)
-    }
-
-    return toBuffer(zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }))
   }
+
+  if (lastSuccessfulRevision === 0) return null; // No valid revisions found
+
+  // Download the manifest for the last successful revision
+  const contents = await download(
+    `https://userimages-akm.imvu.com/productdata/${pid}/${lastSuccessfulRevision}/_contents.json`
+  );
+  const manifest = JSON.parse(contents.toString());
+
+  const zip = new JSZip();
+
+  for (const file of manifest) {
+    const url = file.url ?? file.name;
+    console.log(
+      `Downloading https://userimages-akm.imvu.com/productdata/${pid}/${lastSuccessfulRevision}/${url}`
+    );
+    const data = await download(
+      `https://userimages-akm.imvu.com/productdata/${pid}/${lastSuccessfulRevision}/${url}`
+    );
+
+    zip.file(file.name, data);
+  }
+
+  return toBuffer(zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }));
+}
+
 
   if (options.products.length > 0 && !options.quiet) {
     console.log(`Downloading ${options.products.length} CFL files...\n`)
