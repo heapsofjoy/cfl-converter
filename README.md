@@ -1,6 +1,8 @@
 # CFL Converter
 THIS IS JUST A BAD FORK OF https://github.com/dhkatz/cfl-converter
 
+all I did was make it count up from 1 to whatever url 404's instead of down from 100 and added parallel downloading to make it MUCH FASTER
+
 [![Build Status](https://travis-ci.com/dhkatz/cfl-converter.svg?branch=master)](https://travis-ci.com/dhkatz/cfl-converter) [![npm version](https://badge.fury.io/js/cfl-converter.svg)](https://badge.fury.io/js/cfl-converter)
 
 Convert from IMVU's CFL format to a file usable by the client create mode (.chkn).
