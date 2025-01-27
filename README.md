@@ -1,13 +1,13 @@
 # CFL Converter
 THIS IS JUST A BAD FORK OF https://github.com/dhkatz/cfl-converter
 
-#HOW TO USE THE RUN.BAT
+# HOW TO USE THE RUN.BAT
 you need to make a folder structure like this ROOT FOLDER\DO NOT DELETE\7z\ and place all the contents of the 7zip exe in it
 
 root folder can be named whatever but the run.bat needs to be in the root folder
 
 
-all I did was make it count up from 1 to whatever url 404's instead of down from 100 and added parallel downloading to make it MUCH FASTER
+all I did was make it count up from 1 to whatever url 404's instead of down from 100 and added parallel downloading (nvm couldnt get parallel downloading working lol) to make it MUCH FASTER
 
 [![Build Status](https://travis-ci.com/dhkatz/cfl-converter.svg?branch=master)](https://travis-ci.com/dhkatz/cfl-converter) [![npm version](https://badge.fury.io/js/cfl-converter.svg)](https://badge.fury.io/js/cfl-converter)
 
