@@ -1,12 +1,6 @@
 # CFL Converter
 THIS IS JUST A BAD FORK OF https://github.com/dhkatz/cfl-converter
 
-# HOW TO USE THE RUN.BAT
-you need to make a folder structure like this ROOT FOLDER\DO NOT DELETE\7z\ and place all the contents of the 7zip exe in it
-
-root folder can be named whatever but the run.bat needs to be in the root folder
-
-
 all I did was make it count up from 1 to whatever url 404's instead of down from 100 and added parallel downloading (nvm couldnt get parallel downloading working lol) to make it MUCH FASTER
 
 [![Build Status](https://travis-ci.com/dhkatz/cfl-converter.svg?branch=master)](https://travis-ci.com/dhkatz/cfl-converter) [![npm version](https://badge.fury.io/js/cfl-converter.svg)](https://badge.fury.io/js/cfl-converter)
@@ -61,6 +55,11 @@ This can be accomplished by running the product ID through the url `http://useri
 The number at the end seems to be the revision number, so you may want to check if numbers higher than 1 work as well and get the highest revision you can.
 
 After, simply save the downloaded file with a .cfl extension and use this tool to convert it to a CHKN file.
+
+# HOW TO USE THE RUN.BAT
+you need to make a folder structure like this ROOT FOLDER\DO NOT DELETE\7z\ and place all the contents of the 7zip exe in it
+
+root folder can be named whatever but the run.bat needs to be in the root folder
 
 ## License
 
